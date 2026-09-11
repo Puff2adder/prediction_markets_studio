@@ -29,6 +29,8 @@ from ui import concept, configure_page, hero, success, warning, why
 
 
 configure_page()
+from studio_theme import apply_studio_theme, style_plotly, studio_line_chart
+apply_studio_theme()
 
 
 def initialize_state():
@@ -163,7 +165,7 @@ elif page == "2 · Payoff and profit":
             payoff *= -1
         rows.append({"State": state, "Position payoff ($)": quantity * payoff, "Initial cash flow ($)": (-1 if direction == "Buy" else 1) * quantity * price, "Profit at settlement ($)": position_profit(occurs, side, price, quantity, direction.lower())})
     st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
-    st.plotly_chart(payoff_chart(yes_price, no_price, direction.lower(), side, quantity), key="payoff_profit_chart", width="stretch")
+    st.plotly_chart(style_plotly(payoff_chart(yes_price, no_price, direction.lower(), side, quantity)), key="payoff_profit_chart", width="stretch", theme=None)
     concept("Read the signs", "Buying creates a negative initial cash flow and a nonnegative payoff. Selling reverses both cash flows and can create a settlement liability.")
 
 
@@ -377,7 +379,7 @@ elif page == "7 · Digital-option bridge":
     st.title("7 · Digital-option bridge")
     hero("Prediction claims are digital options", "Both depend on whether a threshold is crossed, but a standard call keeps gaining value beyond the strike.")
     strike = st.slider("Threshold or strike K", 20.0, 200.0, 100.0, 5.0)
-    st.plotly_chart(digital_call_chart(strike), key="digital_call_bridge", width="stretch")
+    st.plotly_chart(style_plotly(digital_call_chart(strike)), key="digital_call_bridge", width="stretch", theme=None)
     left, right = st.columns(2)
     with left:
         concept("Digital claim", "Pays a fixed $1 if Sₜ > K and $0 otherwise. Its payoff has a jump at the threshold.")
