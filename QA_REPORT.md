@@ -7,3 +7,7 @@ Headless Chrome rendered the introduction, five worked cases, all five sensitivi
 Benchmarks: sports cost 62 and terminal profit 38 or −62; belief-weighted expected profit 8 at p=.70, q=.62; binary complete-set value exp(−.02)=.9801986733 and arbitrage profit today .0401986733; GDP protection costs 12, equalizes net income at 88, and has expected claim profit −4 at p=.20; immediate buy/merge gain .02 after costs.
 
 The previous deliverable is preserved in prediction_studio_before_guided_sequence.zip. The refreshed complete package includes case_analysis.py, all other application modules, requirements, theme configuration, launcher, tests and documentation. No GitHub upload or remote deployment was performed.
+
+## Practice calculator update
+
+88 automated tests pass, including arithmetic validation, all three calculator-to-answer transfers, invalid-expression handling and reset. Each calculator is available immediately without revealing a solution. calculator.py is now required for deployment and included in the complete ZIP.

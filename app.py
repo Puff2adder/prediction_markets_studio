@@ -8,6 +8,7 @@ from engine import discount, binary_position
 from questions import QUESTIONS
 from studio_theme import apply_studio_theme, style_plotly
 import case_analysis as analysis
+from calculator import calculate
 
 
 def prose(renderer):
@@ -91,6 +92,21 @@ def mcq(question, prefix='quiz_'):
 
 
 def numeric(prompt, target, hint, solution, key, tolerance=0.005):
+    st.markdown('**Calculator**')
+    caption('Enter your own arithmetic using `+`, `-`, `*`, `/`, parentheses and `exp(...)`. For example, `exp(-0.03*0.5)` discounts one dollar for half a year at 3%. Enter percentages as decimals; omit currency signs.')
+    expression = st.text_input('Your calculation', key=key+'_expression', placeholder='Type an arithmetic expression')
+    if st.button('Calculate', key=key+'_calculate'):
+        try:
+            st.session_state[key+'_calc_result'] = (expression, calculate(expression, {}))
+        except ValueError as exc:
+            st.session_state.pop(key+'_calc_result', None)
+            error(str(exc))
+    calculated = st.session_state.get(key+'_calc_result')
+    if calculated is not None and calculated[0] == expression:
+        write(f'Calculator result: **{calculated[1]:.10g}**')
+        caption('This evaluates your expression; it does not check whether you chose the right formula.')
+        if st.button('Use result as my answer', key=key+'_use_result'):
+            st.session_state[key+'_answer'] = calculated[1]
     answer = st.number_input(prompt, value=None, format='%.4f', key=key+'_answer')
     if st.button('Check calculation', key=key+'_check'):
         if answer is None:

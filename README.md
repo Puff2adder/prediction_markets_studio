@@ -29,7 +29,7 @@ After installing requirements once, double-click **Launch Prediction Studio.cmd*
 
 ## Upload to GitHub and Streamlit Community Cloud
 
-The easiest deployment is a separate repository, for example `prediction-studio-v2`, with the **contents of this folder at the repository root**. Upload `app.py`, **`case_analysis.py`**, `engine.py`, `questions.py`, `studio_theme.py`, `requirements.txt`, and `.streamlit/config.toml`. Include the README, launcher and tests if desired. Do not upload `__pycache__`, `.pytest_cache`, `.venv` or any secrets. A ZIP is a transfer package: extract it before uploading the files.
+The easiest deployment is a separate repository, for example `prediction-studio-v2`, with the **contents of this folder at the repository root**. Upload `app.py`, **`calculator.py`**, **`case_analysis.py`**, `engine.py`, `questions.py`, `studio_theme.py`, `requirements.txt`, and `.streamlit/config.toml`. Include the README, launcher and tests if desired. Do not upload `__pycache__`, `.pytest_cache`, `.venv` or any secrets. A ZIP is a transfer package: extract it before uploading the files.
 
 If GitHub's file chooser does not include the hidden configuration folder, choose **Add file → Create new file**, enter `.streamlit/config.toml` as the filename, paste the contents of the supplied file, and commit. The folder is created by the slash in that filename. Use Create new file, not Upload files, for this step.
 
@@ -65,3 +65,5 @@ The platform illustration uses documented binary split/merge rights, with invent
 - `requirements.txt`, `requirements-dev.txt`: application and test dependencies.
 - `tests/`: numerical and Streamlit interaction checks.
 - `INSTRUCTOR_GUIDE.md`: model interpretation and suggested use.
+
+Each numerical practice problem has a calculator available before an attempt. Students enter arithmetic (including exp for discounting), press Calculate, and optionally use the result as their answer. Checking the answer is a separate action.
