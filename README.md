@@ -1,56 +1,67 @@
-# Prediction Market Studio v1.0
+# Prediction Studio
 
-An ungraded Streamlit practice laboratory for binary and multi-outcome prediction contracts. All contracts and market data are hypothetical. The studio uses no live odds, money, accounts, student records, or grade transmission.
+A new, simplified Streamlit practice laboratory aligned with `prediction_version3_reviewed.tex` and the three-question digital-claims homework. The original studio remains separate. All examples are hypothetical and ungraded; the application makes no live-market calls, requests no student information and transmits no grades.
 
-## Learning path
+## Student sequence
 
-1. Contract anatomy and settlement rules
-2. Payoff versus profit
-3. Theory versus practice: textbook replication, Polymarket split/merge mechanics, and Kalshi's complementary order book
-4. Market-implied risk-adjusted probability versus physical belief
-5. Mutually exclusive and exhaustive multi-outcome claims
-6. A practice-token LMSR automated market maker
-7. The digital-option bridge
-8. Eleven attempt-first applied challenges
-9. Twenty-three shuffled knowledge-check questions
+0. **Start here:** a short description of the studio, with no calculations or input controls.
+1. **Sports payoffs:** Harbor FC versus Valley United; Yes means Harbor wins in regulation, No includes draw or loss. Study the default payoff table before changing the purchase price and number of claims. Separate payoff, cost and financed profit.
+2. **Complete sets:** binary Yes/No replication, borrowing/lending, then home win/draw/away win. Combine home and draw claims to replicate “Harbor does not lose”; distinguish overlapping events from a complete set.
+3. **Prices and beliefs:** change a personal belief while holding the quote fixed. The expected-profit graph shows why disagreement is not arbitrage.
+4. **GDP protection:** compare an assumed objective probability with a separately entered hypothetical market price. Explain the value of money in bad times using household income before and after protection. No advanced pricing model is used.
+5. **Polymarket connection:** one brief hypothetical binary conversion example using bids, asks and total costs. Current collateral is distinguished from a future dollar.
+6. **Practice:** the three short homework calculations and twelve multiple-choice questions with attempt-first feedback, hints, worked explanations and reset controls.
 
-## Run locally
+Each teaching case follows: problem → learning objectives → defined default data → worked analysis and outcome → optional sensitivity controls → consolidation questions → accomplishments. The fixed benchmark stays visible and unchanged when students alter the separate scenario. Prices and beliefs and GDP include a short sensitivity preview before the controls. Practice is attempt-first, with an optional worked benchmark.
 
-From this folder:
+Reset this section restores local defaults; Start over clears the session. All displayed inputs have local definitions and units. No advanced GDP pricing model is introduced: objective probability and the hypothetical insurance price are separate inputs.
+
+## Run on Windows
+
+Open a terminal in this folder:
 
 ```powershell
 python -m pip install -r requirements.txt
-python -m streamlit run app.py --server.port 8790
+python -m streamlit run app.py --server.port 8792
 ```
 
-On Windows, `Launch Prediction Market Studio.cmd` performs the launch step.
+After installing requirements once, double-click **Launch Prediction Studio.cmd**. Open http://localhost:8792 if your browser does not open automatically. Port 8792 keeps this version separate from the older studio. For a separate environment, first run `python -m venv .venv`, then `.venv\Scripts\Activate.ps1`.
 
-## Test
+## Upload to GitHub and Streamlit Community Cloud
+
+The easiest deployment is a separate repository, for example `prediction-studio-v2`, with the **contents of this folder at the repository root**. Upload `app.py`, **`case_analysis.py`**, `engine.py`, `questions.py`, `studio_theme.py`, `requirements.txt`, and `.streamlit/config.toml`. Include the README, launcher and tests if desired. Do not upload `__pycache__`, `.pytest_cache`, `.venv` or any secrets. A ZIP is a transfer package: extract it before uploading the files.
+
+If GitHub's file chooser does not include the hidden configuration folder, choose **Add file → Create new file**, enter `.streamlit/config.toml` as the filename, paste the contents of the supplied file, and commit. The folder is created by the slash in that filename. Use Create new file, not Upload files, for this step.
+
+In Streamlit Community Cloud, create an app from the repository and branch. Set the main file to `app.py`; use Python 3.11 or 3.12. Dependencies are in `requirements.txt`. No secrets are needed. Later commits to the deployed branch trigger an update; inspect Cloud logs if it fails. Copy the published URL into Canvas as an external link that opens in a new tab.
+
+For the full course repository instead, the entry point is `chapter_04_option_basics/studio/Prediction_Market_Studio_v2.0/app.py`. Streamlit configuration is read relative to the launch working directory: put the supplied theme configuration in the repository-root `.streamlit/config.toml` when launching from the repository root. Review any existing root configuration before changing it. The app also applies contrast CSS and explicit Plotly colors, so text/graph contrast is not left to an inherited browser theme.
+
+## Verification
 
 ```powershell
+python -m pip install -r requirements-dev.txt
 python -m pytest -q
 ```
 
-## Streamlit Community Cloud
+Tests cover state-price normalization, payoff replication in every outcome, financed P&L, the GDP comparative statics, insurance costs, conversion directions, input validation, all seven pages and the five optional sensitivity panels, both complete-set modes, all MCQs, hint/retry behavior and reset controls. See `QA_REPORT.md` for the delivery checks.
 
-Push this complete folder to the course repository. When creating the app, choose the repository and branch, then set the main file path to:
+## Model boundaries and sources
 
-`chapter_04_option_basics/studio/Prediction_Market_Studio_v1.0/app.py`
+The textbook sections assume a common payment date/currency, certain contractual settlement, no transaction costs and feasible borrowing, lending and shorting. All contracts pay $1 in the named outcome and zero otherwise. Interest is continuously compounded. The GDP price is a hypothetical input, not derived from the objective probability. The economic discussion explains a possible protection premium without imposing a pricing model. No actual GDP forecast, release date, exchange specification or sports odds are used.
 
-If this folder is instead used as the root of a standalone repository, set the main file path to `app.py`. No secrets are required. After deployment, copy the public app URL into the LMS/Canvas page as an external link that opens in a new tab.
+The sports event is a guaranteed completed regulation-time match; real cancellation/void rules require additional states. The GDP example uses a specified hypothetical first annual real-growth release, g < 1% versus g ≥ 1%, with observation and payment at T. Slider changes to T describe alternative payment horizons, not actual match scheduling or publication calendars.
 
-## File organization
+The platform illustration uses documented binary split/merge rights, with invented quotes and costs, successful execution and conversion, and no rewards or collateral risk. It is not a live trading opportunity. Official documentation checked 11 September 2026:
+- https://docs.polymarket.com/concepts/positions-tokens
+- https://docs.polymarket.com/trading/fees
 
-- `app.py`: student interface and learning flow
-- `prediction_engine.py`: payoff, profit, discounting, parity, and digital-option calculations
-- `market_maker.py`: LMSR price and trade-cost calculations
-- `challenge_bank.py`: applied attempt-first problems and hints
-- `question_bank.py`: shuffled knowledge check
-- `ui.py`: shared visual styling
-- `tests/`: numerical and content checks
+## Files
 
-## Institutional sources and model boundaries
-
-The platform comparison is based on the official [Polymarket positions and tokens](https://docs.polymarket.com/concepts/positions-tokens), [Polymarket fees](https://docs.polymarket.com/trading/fees), [Kalshi order-book](https://docs.kalshi.com/getting_started/orderbook_responses), and [Kalshi settlement](https://docs.kalshi.com/getting_started/market_settlement) documentation. Platform rules and fees can change, so current rules should be rechecked before reuse.
-
-The exercises explicitly distinguish bids, asks, last prices, collateral funding, and execution. They still abstract from counterparty/default risk, taxes, latency, and detailed account-level rules. The automated market maker illustrates price impact mechanically; it does not establish that prices are true probabilities or encourage real-money trading.
+- `app.py`: student interface and learning sequence.
+- `engine.py`: pure financial calculations.
+- `questions.py`: twelve conceptual questions and explanations.
+- `studio_theme.py` and `.streamlit/config.toml`: paired text/background colors.
+- `requirements.txt`, `requirements-dev.txt`: application and test dependencies.
+- `tests/`: numerical and Streamlit interaction checks.
+- `INSTRUCTOR_GUIDE.md`: model interpretation and suggested use.
